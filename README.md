@@ -1,6 +1,11 @@
 # 45秒でdockerでvpnサーバを建てる
 
 ## Q. 45秒で何ができる？
+<div align="center">
+  <img width="400px" src="https://www.dropbox.com/s/u189sd4oc6v7tbg/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202020-01-04%202.44.36.png?raw=1">
+  <div> 参考 YouTubeのみなみチャンネル </div>
+</div>
+
 ## A. 45秒でvpnサーバを建てられる
 
 ## 引っ越しのたびに光回線を引き直しているんだけど...
@@ -122,6 +127,5 @@ softetherのclientをdockerにラップアップしてinstallしようと試み�
 ## 操作感
 出先のカフェから家のiMacにsshをしてみました。iMacはsoftbank airのネットワークの内側なので、本来ならばアクセスできないはずですが、VPNサーバで同一のネットワークにいることになるので、通信ができるようになりました。
 
-<div align="center">
-  <img src="600px" src="https://www.dropbox.com/s/p5h63p7zxp9969u/Jan-04-2020%2002-10-42.gif?raw=1">
-</div>
+IPアドレスもGMOのconohaのものになっています。
+![anime](https://www.dropbox.com/s/4tcqdrcp6e0kjoa/ezgif-6-6b89fe6a2013.gif?raw=1)
