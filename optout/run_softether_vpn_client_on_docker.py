@@ -53,10 +53,9 @@ query = \
      '-e', 'VPN_PORT=5555',
      '-e', f'ACCOUNT_USER={USERNAME}',
      '-e', f'ACCOUNT_PASS={PASSWORD}',
-     #'-e', 'TAP_IPADDR={TAP_IPADDR}',
+     '-e', f'TAP_IPADDR={TAP_IPADDR}',
      'mitsutaka/softether-vpnclient']
 print(' '.join(query))
-exit()
 with Popen(query, stdout=PIPE, stdin=PIPE) as proc:
     proc.wait(timeout=60)
     reader = io.TextIOWrapper(proc.stdout)
