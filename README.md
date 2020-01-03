@@ -35,3 +35,66 @@
 </div>
 
 ## イメージするネットワーク図
+
+<div align="center">
+  <img width="600px" src="https://www.dropbox.com/s/3tc3clma0jnwkux/%E5%9B%B31.png?raw=1">
+  <div> 図3. こんな使い方をしたい </div>
+</div>
+conohaのVPSの激弱激安インスタンス上にVPNサーバをデプロイすることで、そこ経由で家のPCにアクセスしたいです。  
+
+## VPNサーバの設定は難しい & 苦痛
+  どうにもインフラが職人芸化する要因にソフトウェアのチューニングや設定がとても狭い知識で成立していて、かなりわかりにくく、一度なんとかしても、もう二度目は使えなかったりするなど結構苦しいです。  
+
+  「dockerで簡単にサーバの設定を含めてデプロイできたらなぁー」とか言っていたら、[そのもの](https://github.com/siomiz/SoftEtherVPN)が存在しました。
+
+  英語なのと、いくつか情報が多すぎるので簡単化のため、wrapperスクリプトを書いたのでご紹介します。  
+
+## コード
+最近知ったのですが、Pythonのsubprocess.Popenはかなりきれいなshell scriptの上位互換的なコードを書くことができ、stdin, stdoutを自在にコントールできるので、Linux, Unix的なシステムと非常に相性がいいです。  
+
+docker-composeでもいいのですが、インタラクティブにユーザ名、パスワードを設定したいので、以下のようなコードを書きました。  
+
+```python
+USERNAME = input('USERNAMEを指定してください:')
+PASSWORD = input('PASSWORDを指定してください:')
+PSK = input('PSKのパスワードを指定してください:')
+
+query = \
+    ['docker',
+     'run',
+     '-d',
+     '--cap-add',
+     'NET_ADMIN',
+     '-p',
+     '500:500/udp',
+     '-p',
+     '4500:4500/udp',
+     '-p',
+     '1701:1701/tcp',
+     '-p',
+     '1194:1194/udp',
+     '-p',
+     '5555:5555/tcp',
+     '-e',
+     f'USERNAME={USERNAME}',
+     '-e',
+     f'PASSWORD={PASSWORD}',
+     '-e',
+     f'PSK={PSK}',
+     'siomiz/softethervpn']
+
+with Popen(query, stdout=PIPE, stdin=PIPE) as proc:
+    proc.wait(timeout=60)
+    reader = io.TextIOWrapper(proc.stdout)
+    while True:
+        r = reader.read(1)
+        if not r:
+            break
+        print(r, end='', flush=True)
+```
+
+## 使い方
+
+
+## 結局、OSXやiOSやAndroidで使うにはL2TSが使えれば良い
+
