@@ -95,6 +95,33 @@ with Popen(query, stdout=PIPE, stdin=PIPE) as proc:
 
 ## 使い方
 
+### LinuxにVPNサーバをdockerでインストールする
+サーバはDockerインストール済みのconohaのUbuntu 18.04を想定しています。  
+```console
+$ wget -q https://raw.githubusercontent.com/GINK03/softether_docker_wrapper/master/run_softether_vpn_server_on_docker.py -O /tmp/vpn.py && python3 /tmp/vpn.py
+USERNAMEを指定してください:hogehoge
+PASSWORDを指定してください:1223334444
+PSKのパスワードを指定してください:vpn
+3f98a1d924124c5fb1abd119d151bc2c95cb3fb76bdbfd64804e6c5ba42949b9
+```
+45秒もかからない？
+
+### Macをクライアントとする
+<div align="center">
+  <img width="500px" src="https://www.dropbox.com/s/5ycsox0x1d5950d/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202020-01-04%201.30.01.png?raw=1">
+</div>
+例えばMacでセットアップする場合、設定のネットワークから、+からVPN(L2TP)を選択し、USERNAMEをterminalで入力したものと同一のものを入力します。
+<div align="center">
+  <img width="500px" src="https://www.dropbox.com/s/5ycsox0x1d5950d/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202020-01-04%201.30.01.png?raw=1">
+</div>
+PASSWORDはパスワードに、PSKのパスワードはMacでは共有シークレットの部分になります。
 
 ## 結局、OSXやiOSやAndroidで使うにはL2TSが使えれば良い
+softetherのclientをdockerにラップアップしてinstallしようと試みましたが、再現性が謎のエラーが多く、不安定すぎてやめました。L2TSが使えれば結局VPNに入れるので、特別に用意する必要は私のスキルでは労力に見合わないのさそうです。
 
+## 操作感
+出先のカフェから家のiMacにsshをしてみました。iMacはsoftbank airのネットワークの内側なので、本来ならばアクセスできないはずですが、VPNサーバで同一のネットワークにいることになるので、通信ができるようになりました。
+
+<div align="center">
+  <img src="600px" src="https://www.dropbox.com/s/p5h63p7zxp9969u/Jan-04-2020%2002-10-42.gif?raw=1">
+</div>
