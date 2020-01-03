@@ -6,10 +6,10 @@ import sys
 import io
 import json
 '''
-subprocessやもろもろを使っている関係で、python3.7.0以上を要求する
+subprocessやもろもろを使っている関係で、python3.6以上を要求する
 '''
 ver = sys.version_info
-if not (ver.major >= 3 and ver.minor >= 7):
+if not (ver.major >= 3 and ver.minor >= 6):
     raise Exception('python 3.7.0以上で動作させてください')
 
 '''
